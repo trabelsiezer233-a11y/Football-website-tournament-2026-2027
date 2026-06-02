@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>بطولة كأس الإتحاد الخربة</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    text-align: center;
+    color: white;
+    background: url("https://images.unsplash.com/photo-1588072432836-e10032774350") no-repeat center center/cover;
+}
+
+/* ⏰ TOP BAR */
+#topTime{
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%;
+    max-width: 900px;
+    background: rgba(0,0,0,0.7);
+    color: #00ffd5;
+    padding: 12px 18px;
+    border-radius: 15px;
+    font-size: 14px;
+    font-weight: bold;
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#topTime div{
+    width: 33%;
+    text-align: center;
+}
+
+/* PAGE */
+.overlay {
+    background: rgba(0,0,0,0.6);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    background: rgba(255,255,255,0.1);
+    padding: 40px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+}
+
+h1 { color: #00ffd5; }
+
+a {
+    display: block;
+    width: 230px;
+    margin: 12px auto;
+    padding: 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    position: relative;
+    transition: 0.3s;
+}
+
+a:hover { transform: scale(1.1); }
+
+.btn1 { background: #ff4b5c;color:white;}
+.btn2 { background: #00c9a7;color:white;}
+.btn3 { background: #ffc75f;color:black;}
+.btn4 { background: aqua;color:black;}
+.btn5 { background: linear-gradient(45deg,#7b2cff,#00d4ff); color:white;}
+.btn6 {color:white;}   
+
+/* BADGE */
+.badge{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: bold;
+    animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+    0% {background:red;color:white;}
+    100% {background:white;color:red;}
+}
+
+/* BUBBLE */
+.bubble {
+    margin-top: 20px;
+    padding: 12px 18px;
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    animation: bubble 1s infinite alternate;
+}
+
+@keyframes bubble {
+    0% {background:white;color:black;}
+    100% {background:#ff4b5c;color:white;}
+}
+
+/* FOOTER */
+.footer {
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(45deg,#ff4b5c,#00ffd5,#ffc75f);
+    background-size: 300% 300%;
+    color:black;
+    font-weight:bold;
+    animation: move 5s infinite;
+}
+
+@keyframes move {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ⏰ TOP BAR -->
+<div id="topTime">
+  <div id="time"></div>
+  <div id="date"></div>
+  <div id="hijri"></div>
+</div>
+
+<div class="overlay">
+<div class="container">
+
+<h1>مرحبا بكم في كأس الإتحاد الخربة</h1>
+<p>(تسجيل متاح الان)</p>
+
+<a href="bracket.html" class="btn1">قرعة الادوار الإقصائية</a>
+
+<a href="devoir.html" class="btn2">
+صفحة التسجيل للمشاركة
+</a>
+
+<a href="holidays.html" class="btn3">تصنيف الحالي</a>
+
+<a href="temps.html" class="btn4">قائمة المسجلين</a>
+
+<!-- 🔥 زر فضاء التلميذ -->
+<a href="student.html" class="btn5">
+نتائج المباريات
+</a>
+
+<div class="bubble">
+💬 بداية الكأس ستكون يوم 8 اوت 2026
+</div>
+
+</div>
+</div>
+
+<footer class="footer"><a href="admin.html" class="btn6">©️ 2026 جميع الحقوق محفوظة</a></footer>
+
+<script>
+function updateTime(){
+
+    const now = new Date();
+
+    const time = now.toLocaleTimeString('fr-FR', {
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+    });
+
+    const date = now.toLocaleDateString('fr-FR');
+
+    let hijri = now.toLocaleDateString('ar-SA-u-ca-islamic', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+    });
+
+    hijri = hijri.replace(/[٠-٩]/g, d =>
+        "0123456789"["٠١٢٣٤٥٦٧٨٩".indexOf(d)]
+    );
+
+    document.getElementById("time").innerHTML = "🕒 " + time;
+    document.getElementById("date").innerHTML = "📅 " + date;
+    document.getElementById("hijri").innerHTML = "🌙 هـ: " + hijri;
+}
+
+setInterval(updateTime, 1000);
+updateTime();
+</script>
+
+</body>
+</html>
